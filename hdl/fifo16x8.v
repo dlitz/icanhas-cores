@@ -3,37 +3,25 @@
 `define FIFO16X8_V
 
 module fifo16x8(
-  clock_in,                   // positive edge-triggered system clock
-  n_reset_in,                 // active low async reset
-  write_in,                   // write enable
-  wdata_in,                   // data to write into the fifo
-  read_in,                    // read enable
-  rdata_out,                  // data to read from the fifo
-  readable_out,               // asserted when the fifo is empty
-  writable_out                // asserted when the fifo is full
+  input clock_in,                   // positive edge-triggered system clock
+  input n_reset_in,                 // active low async reset
+  input write_in,                   // write enable
+  input [7:0] wdata_in,             // data to write into the fifo
+  input read_in,                    // read enable
+  output reg [7:0] rdata_out,       // data to read from the fifo
+  output wire readable_out,          // asserted when the fifo is empty
+  output wire writable_out           // asserted when the fifo is full
 );
-
-input clock_in;
-input n_reset_in;
-input write_in;
-input [7:0] wdata_in;
-input read_in;
-
-output [7:0] rdata_out;
-output readable_out;
-output writable_out;
 
 reg [3:0] rptr;
 reg [3:0] wptr;
 reg [4:0] avail;    // number of bytes available in the buffer
 
-reg [7:0] rdata_out;
-
 wire full = (avail == 0);
 wire empty = (avail == 16);
 
-wire writable_out = !full;
-wire readable_out = !empty;
+assign writable_out = !full;
+assign readable_out = !empty;
 
 // Internal read & write signals
 // Read requests are ignored when the buffer is empty.

@@ -10,24 +10,11 @@
 `define RESET_SYNCHRONIZER_V
 
 module reset_synchronizer(
-  clock_in,             // positive edge-triggered clock input
-  reset_in,             // active high asynchronous reset input
-  n_master_reset_out    // active low asynchronous assert, synchronous de-assert reset output
+  input clock_in,                 // positive edge-triggered clock input
+  input reset_in,                 // active high asynchronous reset input
+  output reg n_master_reset_out   // active low asynchronous assert, synchronous de-assert reset output
 );
 
-// inputs
-input clock_in;
-input reset_in;
-
-// outputs
-output n_master_reset_out;
-
-// wires
-wire clock_in;     // positive edge-triggered clock
-wire reset_in;     // active high asynchronous reset
-
-// registers
-reg n_master_reset_out;
 reg d;    // intermediate signal -- output of RESET_FF1, input of RESET_FF2
 
 // active-low reset signal by inverting active-high reset signal
