@@ -1,23 +1,21 @@
-require 'rubygems'
-require 'test/unit'
-require 'ruby-vpi'
+require 'test_helper'
 
-module ExtraMethods
-  def cycle!
-    clock_in.t!
-    advance_time
-    clock_in.f!
-    advance_time
+class Fifo16x8Test < Test::Unit::TestCase
+  module ExtraMethods
+    def cycle!
+      clock_in.t!
+      advance_time
+      clock_in.f!
+      advance_time
+    end
+
+    def reset!
+      n_reset_in.f!
+      cycle!
+      n_reset_in.t!
+    end
   end
 
-  def reset!
-    n_reset_in.f!
-    cycle!
-    n_reset_in.t!
-  end
-end
-
-class MyTest < Test::Unit::TestCase
   def setup
     @dut = VPI.vpi_handle_by_name("fifo16x8", nil)
     @dut.extend(ExtraMethods)

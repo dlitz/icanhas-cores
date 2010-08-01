@@ -1,17 +1,15 @@
-require 'rubygems'
-require 'test/unit'
-require 'ruby-vpi'
+require 'test_helper'
 
-module ExtraMethods
-  def cycle!
-    clock_in.t!
-    advance_time
-    clock_in.f!
-    advance_time
+class ResetSynchronizerTest < Test::Unit::TestCase
+  module ExtraMethods
+    def cycle!
+      clock_in.t!
+      advance_time
+      clock_in.f!
+      advance_time
+    end
   end
-end
 
-class MyTest < Test::Unit::TestCase
   def setup
     @dut = VPI.vpi_handle_by_name("reset_synchronizer", nil)
     @dut.extend(ExtraMethods)
