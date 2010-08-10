@@ -16,5 +16,5 @@ task :test do
     break if File.exist?(object_file_path)
   }
 
-  system 'cver', "+loadvpi=#{object_file_path}:vlog_startup_routines_bootstrap", '+incdir+./hdl', *Dir.glob("hdl/*.v")
+  system 'cver', "+loadvpi=#{object_file_path}:vlog_startup_routines_bootstrap", '+incdir+./hdl', *Dir.glob(["hdl/*.v", "test/*.v"])
 end
