@@ -1,0 +1,34 @@
+Need to fix the following bugs:
+
+    rm -f a.out
+    cp /home/dwon/.rvm/gems/ruby-1.8.7-p334/gems/ruby-vpi-21.1.0/obj/cver.so ruby-vpi.vpi
+    (in /home/dwon/Projects/FPGA/icanhas-cores)
+    Loaded suite ruby-vpi
+    Started
+    FFFF.......
+    Finished in 0.900279 seconds.
+
+      1) Failure:
+    test_concurrent_read_write(Fifo16x8Test)
+        [./test/fifo16x8_test.rb:75:in `test_concurrent_read_write'
+         ./test/fifo16x8_test.rb:69:in `each'
+         ./test/fifo16x8_test.rb:69:in `test_concurrent_read_write']:
+    FIFO should remain readable throughout the test (v=0).
+    <false> is not true.
+
+      2) Failure:
+    test_full_and_empty(Fifo16x8Test) [./test/fifo16x8_test.rb:89]:
+    FIFO should become readable after the first write.
+    <false> is not true.
+
+      3) Failure:
+    test_single_read(Fifo16x8Test) [./test/fifo16x8_test.rb:43]:
+    after write, FIFO should be readable.
+    <false> is not true.
+
+      4) Failure:
+    test_reset_synchronizer(ResetSynchronizerTest) [./test/reset_synchronizer_test.rb:31]:
+    active low reset output should be asserted asynchronously.
+    <false> is not true.
+
+    11 tests, 115 assertions, 4 failures, 0 errors
