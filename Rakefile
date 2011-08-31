@@ -3,7 +3,7 @@ task :test do
   require 'ruby-vpi/util'
 
   # variables for ruby-vpi
-  ENV['RUBYVPI_SIMULATOR'] = 'cver'
+  ENV['RUBYVPI_SIMULATOR'] = 'ivl'
   ENV['DEBUGGER'] = '0'
   ENV['COVERAGE'] = '0'
   ENV['PROTOTYPE'] = '0'
@@ -16,5 +16,7 @@ task :test do
     break if File.exist?(object_file_path)
   }
 
-  system 'cver', "+loadvpi=#{object_file_path}:vlog_startup_routines_bootstrap", '+incdir+./hdl', *Dir.glob(["hdl/*.v", "test/*.v"])
+  rm_f("a.out")
+  cp(object_file_path, "ruby-vpi.vpi")
+  system('iverilog', '-mruby-vpi', *Dir.glob(["hdl/*.v", "test/*.v"])) && system('vvp', '-M.', 'a.out')
 end
